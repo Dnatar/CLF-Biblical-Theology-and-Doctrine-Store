@@ -1,0 +1,23 @@
+#writing down all the requirements for the project
+# virtual environment
+# python3 -m venv venv
+# source venv/bin/activate
+
+ollama
+langchain
+chromadb
+pdfplumber
+langchain-core
+langchain-ollama
+langchain-community
+langchain_text_splitters
+unstructured
+unstructured[all-docs]
+fastembed
+pikepdf
+sentence-transformers
+elevenlabs
+pi_heif
+unstructured_inference
+pdf2image
+pytesseract
