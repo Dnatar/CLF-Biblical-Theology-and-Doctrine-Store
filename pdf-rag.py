@@ -7,19 +7,41 @@ from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_community.document_loaders import OnlinePDFLoader
 
 
-doc_path = "./data/Biblical_Theology_SUP.pdf"
+# doc_path = "./data/Biblical_Theology_SUP.pdf"
 model = "llama3.2"
+# model = "granite3.3"
 
 # Local PDF file uploads
-if doc_path:
-    loader = UnstructuredPDFLoader(file_path=doc_path)
-    data = loader.load()
-    print("done loading....")
-else:
-    print("upload a PDF file")
+# if doc_path:
+#     loader = UnstructuredPDFLoader(file_path=doc_path)
+#     data = loader.load()
+#     print("done loading....")
+# else:
+#     print("upload a PDF file")
 
-content = data[0].page_content
+# content = data[0].page_content
 #print(content[:100])
+
+pdf_files = [
+    "./data/Biblical_Theology_SUP.pdf",
+    "./data/bibl_theology.pdf",
+    # Add more PDF paths here
+]
+
+all_data = []
+for path in pdf_files:
+    loader = UnstructuredPDFLoader(file_path=path)
+    data = loader.load()
+    all_data.extend(data)
+    print(f"Done loading {path}")
+
+if not all_data:
+    print("No PDF files loaded.")
+else:
+    print("All PDFs loaded.")
+
+# Now use all_data for further processing
+content = all_data[0].page_content
 
 # ==== Extract Text from PDF Files and Split into Small Chunks ====
 
@@ -93,9 +115,10 @@ chain = (
 
 
 # res = chain.invoke(input=("what is the document about?",))
-res = chain.invoke(
-    input=("what are the main points as a believer I should be aware of?",)
-)
-# res = chain.invoke(input=("how to report BOI?",))
+res = chain.invoke(input=("list me all male characters in the book with short description?",))
+# res = chain.invoke(
+#     input=("what are the main points as a believer I should be aware of?",)
+# )
+# res = chain.invoke(input=("how to read this document give me in steps with bullet points?",))
 
 print(res)
